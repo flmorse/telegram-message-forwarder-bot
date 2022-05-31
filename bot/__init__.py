@@ -24,7 +24,7 @@ try:
   api_id = int(environ["API_ID"])
   api_hash = environ["API_HASH"]
   bot_token = environ.get("BOT_TOKEN", None)
-  tg_session = environ.get("TELEGRAM_SESSION", None)
+  session_string = environ.get("TELEGRAM_SESSION", None)
   sudo_users = list(set(x for x in environ.get("SUDO_USERS", "999197022").split(";")))
   try:
     from_chats = list(set(int(x) for x in environ.get("FROM_CHATS").split()))
@@ -50,9 +50,9 @@ try:
 except:
   remove_strings = None
 
-if tg_session:
-  LOG.info("Session Mode - {tg_session}")
-  app = Client(tg_session, api_id, api_hash)
+if session_string:
+  LOG.info("Session Mode - {session_string}")
+  app = Client(session_string, api_id, api_hash)
 elif bot_token:
   LOG.info("Bot Mode")
   app = Client(":memory:", api_id, api_hash, bot_token=bot_token)
